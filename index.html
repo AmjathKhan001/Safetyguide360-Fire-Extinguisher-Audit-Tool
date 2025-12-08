@@ -52,18 +52,23 @@
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-fire-extinguisher"></i>
-                    <h1>Fire Extinguisher Health Checkup Audit Tool</h1>
+                    <div class="logo-text">
+                        <h1>Fire Extinguisher Health Checkup Audit Tool</h1>
+                        <p class="tagline">Streamline your fire safety inspections with automated audit reporting</p>
+                    </div>
                 </div>
                 <div class="header-actions">
+                    <button id="newAuditBtn" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> New Audit
+                    </button>
                     <button id="printBtn" class="btn btn-secondary">
-                        <i class="fas fa-print"></i> Print Report
+                        <i class="fas fa-print"></i> Print
                     </button>
                     <button id="exportBtn" class="btn btn-secondary">
-                        <i class="fas fa-file-export"></i> Export PDF
+                        <i class="fas fa-download"></i> Export
                     </button>
                 </div>
             </div>
-            <p class="tagline">Streamline your fire safety inspections with automated audit reporting</p>
         </div>
     </header>
 
@@ -158,41 +163,76 @@
                             </div>
                             
                             <div class="form-group">
+                                <label for="extinguisherName">Extinguisher Name *</label>
+                                <div class="search-container">
+                                    <input type="text" id="extinguisherName" placeholder="Type to search or select" required>
+                                    <div class="search-results" id="extinguisherSearchResults"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
                                 <label for="extinguisherType">Type *</label>
                                 <select id="extinguisherType" required>
                                     <option value="">Select Type</option>
-                                    <option value="CM-Map 90">CM-Map 90</option>
-                                    <option value="CM-Clean Agent">CM-Clean Agent</option>
-                                    <option value="CO2">CO2 Extinguisher</option>
-                                    <option value="Foam">Foam Extinguisher</option>
-                                    <option value="Water">Water Extinguisher</option>
-                                    <option value="Dry Powder">Dry Powder</option>
-                                    <option value="Wet Chemical">Wet Chemical</option>
+                                    <option value="PORTABLE">PORTABLE</option>
+                                    <option value="MODULAR">MODULAR</option>
+                                    <option value="WHEELED">WHEELED</option>
                                 </select>
                             </div>
                             
                             <div class="form-group">
-                                <label for="brand">Brand</label>
-                                <input type="text" id="brand" placeholder="Brand name">
+                                <label for="bodyType">Body Type</label>
+                                <select id="bodyType">
+                                    <option value="">Select Body Type</option>
+                                    <option value="MILD STEEL">MILD STEEL</option>
+                                    <option value="STAINLESS STEEL">STAINLESS STEEL</option>
+                                    <option value="ALUMINIUM">ALUMINIUM</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="operatingType">Operating Type</label>
+                                <select id="operatingType">
+                                    <option value="">Select Operating Type</option>
+                                    <option value="STORE PRESSURE">STORE PRESSURE</option>
+                                    <option value="CARTRIDGE PRESSURE">CARTRIDGE PRESSURE</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="fireAgentType">Fire Agent Type</label>
+                                <select id="fireAgentType">
+                                    <option value="">Select Agent Type</option>
+                                    <option value="POWDER">POWDER</option>
+                                    <option value="GAS">GAS</option>
+                                    <option value="FOAM">FOAM</option>
+                                    <option value="WATER">WATER</option>
+                                    <option value="KITCHEN">KITCHEN (K/F CLASS)</option>
+                                    <option value="AVD">AVD</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="fireAgentName">Fire Agent Name</label>
+                                <input type="text" id="fireAgentName" placeholder="Agent name (e.g., MAP 90%)">
                             </div>
                             
                             <div class="form-group">
                                 <label for="capacity">Capacity *</label>
-                                <select id="capacity" required>
-                                    <option value="">Select Capacity</option>
-                                    <option value="1 Kg">1 Kg</option>
-                                    <option value="2 Kg">2 Kg</option>
-                                    <option value="5 Kg">5 Kg</option>
-                                    <option value="6 Kg">6 Kg</option>
-                                    <option value="9 Kg">9 Kg</option>
-                                    <option value="25 Kg">25 Kg</option>
-                                    <option value="50 Kg">50 Kg</option>
-                                </select>
+                                <div class="search-container">
+                                    <input type="text" id="capacity" placeholder="Enter capacity" required>
+                                    <div class="search-results" id="capacitySearchResults"></div>
+                                </div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="quantity">Quantity *</label>
                                 <input type="number" id="quantity" min="1" value="1" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="brand">Brand</label>
+                                <input type="text" id="brand" placeholder="Brand name">
                             </div>
                             
                             <div class="form-group">
@@ -220,6 +260,13 @@
                                     <option value="Damaged">Damaged</option>
                                     <option value="Not Accessible">Not Accessible</option>
                                 </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="recommendReplacement">
+                                    <label for="recommendReplacement" class="checkbox-label">Recommend Replacement/Addition</label>
+                                </div>
                             </div>
                             
                             <div class="form-group full-width">
@@ -357,11 +404,12 @@
                                 <label for="recommendedType">Recommended Extinguisher Type</label>
                                 <select id="recommendedType">
                                     <option value="">Auto-select based on hazards</option>
-                                    <option value="CM-Map 90">CM-Map 90 (Multi-purpose)</option>
-                                    <option value="CO2">CO2 (Electrical/Flammable Liquids)</option>
-                                    <option value="Foam">Foam (Flammable Liquids)</option>
-                                    <option value="Dry Powder">Dry Powder (Multi-purpose)</option>
-                                    <option value="Wet Chemical">Wet Chemical (Kitchen)</option>
+                                    <option value="ABC / DCP">ABC / DCP</option>
+                                    <option value="CO2">CO2</option>
+                                    <option value="CLEAN AGENT">CLEAN AGENT</option>
+                                    <option value="FOAM">FOAM</option>
+                                    <option value="WATER">WATER</option>
+                                    <option value="KITCHEN">KITCHEN (K/F CLASS)</option>
                                 </select>
                             </div>
                             
@@ -425,6 +473,10 @@
                                         <span class="review-value" id="reviewLocation">-</span>
                                     </div>
                                     <div class="review-item">
+                                        <span class="review-label">Name:</span>
+                                        <span class="review-value" id="reviewName">-</span>
+                                    </div>
+                                    <div class="review-item">
                                         <span class="review-label">Type:</span>
                                         <span class="review-value" id="reviewType">-</span>
                                     </div>
@@ -443,6 +495,10 @@
                                     <div class="review-item">
                                         <span class="review-label">Expiry:</span>
                                         <span class="review-value" id="reviewExpiry">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Recommend Replacement:</span>
+                                        <span class="review-value" id="reviewRecommend">No</span>
                                     </div>
                                 </div>
                             </div>
@@ -502,7 +558,7 @@
                             <tr>
                                 <th>S.No</th>
                                 <th>Location</th>
-                                <th>Type</th>
+                                <th>Extinguisher</th>
                                 <th>Capacity</th>
                                 <th>Qty</th>
                                 <th>Status</th>
@@ -619,6 +675,7 @@
                     <a href="https://amzn.to/4p8ceG6" target="_blank" class="amazon-btn">
                         <i class="fas fa-tag"></i> Clearence Sale Store - Upto 70% All Day
                     </a>
+                    <p class="affiliate-disclaimer"><small>As an Amazon Associate I earn from qualifying purchases.</small></p>
                 </div>
                 
                 <!-- Buy Me a Coffee Button -->
@@ -654,11 +711,18 @@
                     <p>This tool helps comply with NFPA 10, OSHA, and local fire safety regulations for fire extinguisher maintenance and inspection.</p>
                 </div>
             </div>
+            
+            <div class="footer-legal">
+                <div class="legal-links">
+                    <a href="#privacyPolicyModal" class="legal-link" data-modal="privacy">Privacy Policy</a>
+                    <a href="#termsModal" class="legal-link" data-modal="terms">Terms of Use</a>
+                    <a href="#affiliateModal" class="legal-link" data-modal="affiliate">Affiliate Disclosure</a>
+                    <a href="#disclaimerModal" class="legal-link" data-modal="disclaimer">Disclaimer</a>
+                </div>
+            </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 Fire Extinguisher Audit Tool. All rights reserved. | 
-                    <a href="#" id="privacyPolicy">Privacy Policy</a> | 
-                    <a href="#" id="termsOfUse">Terms of Use</a>
-                </p>
+                <p>&copy; 2024 Fire Extinguisher Audit Tool. All rights reserved.</p>
                 <div class="footer-disclaimer">
                     <p><i class="fas fa-exclamation-circle"></i> <strong>Disclaimer:</strong> This tool is for guidance only. Always consult with certified fire safety professionals for official inspections.</p>
                 </div>
@@ -666,7 +730,99 @@
         </div>
     </footer>
 
-    <!-- Modals -->
+    <!-- Legal Modals -->
+    <div id="privacyPolicyModal" class="modal legal-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3><i class="fas fa-user-shield"></i> Privacy Policy</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Data Collection</h4>
+                <p>This tool operates entirely within your browser. We do not collect, store, or transmit any personal data to external servers.</p>
+                
+                <h4>Local Storage</h4>
+                <p>The tool uses your browser's localStorage to save your audit data temporarily. This data remains on your device and can be cleared at any time.</p>
+                
+                <h4>Third-Party Services</h4>
+                <p>We use Google Analytics for usage statistics and Google AdSense for advertisements. These services may collect anonymous usage data.</p>
+                
+                <h4>Your Rights</h4>
+                <p>You can clear all stored data by using the "Clear All Items" button or clearing your browser's local storage.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="modal legal-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3><i class="fas fa-file-contract"></i> Terms of Use</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Acceptance of Terms</h4>
+                <p>By using this tool, you agree to these terms of use. If you do not agree, please do not use the tool.</p>
+                
+                <h4>License</h4>
+                <p>This tool is provided free of charge for personal and professional use. You may not redistribute, sell, or modify the tool without permission.</p>
+                
+                <h4>Limitations</h4>
+                <p>The tool is provided "as is" without warranties. We are not liable for any damages resulting from its use.</p>
+                
+                <h4>Proper Use</h4>
+                <p>Use this tool responsibly and in compliance with all applicable laws and regulations.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="affiliateModal" class="modal legal-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3><i class="fas fa-handshake"></i> Affiliate Disclosure</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Amazon Associates</h4>
+                <p>This tool participates in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.</p>
+                
+                <h4>How It Works</h4>
+                <p>When you click on Amazon links on this site and make a purchase, we may receive a small commission at no extra cost to you.</p>
+                
+                <h4>Transparency</h4>
+                <p>We only recommend products we believe are useful for fire safety professionals. Your support through these links helps us maintain and improve this free tool.</p>
+                
+                <h4>No Extra Cost</h4>
+                <p>There is no additional cost to you for using our affiliate links.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="disclaimerModal" class="modal legal-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Legal Disclaimer</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Professional Advice</h4>
+                <p>This tool is for informational purposes only and does not constitute professional fire safety advice.</p>
+                
+                <h4>No Guarantees</h4>
+                <p>While we strive for accuracy, we make no guarantees about the completeness or reliability of the information provided.</p>
+                
+                <h4>Compliance</h4>
+                <p>Users are responsible for ensuring their fire safety practices comply with all local, state, and federal regulations.</p>
+                
+                <h4>Liability</h4>
+                <p>We are not liable for any damages, losses, or injuries resulting from the use of this tool or reliance on its information.</p>
+                
+                <h4>Certification</h4>
+                <p>Always consult with certified fire safety professionals for official inspections and compliance verification.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success and Confirm Modals -->
     <div id="successModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -694,8 +850,10 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="fire-extinguisher-database.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
