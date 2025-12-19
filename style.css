@@ -1,3 +1,5 @@
+[file name]: style.css
+[file content begin]
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -6,20 +8,21 @@
 }
 
 :root {
-    --primary-color: #e63946;
-    --primary-dark: #c1121f;
-    --secondary-color: #2a9d8f;
-    --secondary-dark: #21867a;
-    --accent-color: #f4a261;
-    --dark-color: #264653;
-    --light-color: #f1faee;
+    --primary-color: #ff4c4c;
+    --primary-dark: #d32f2f;
+    --secondary-color: #0099e5;
+    --secondary-dark: #006db3;
+    --accent-color: #34bf49;
+    --accent-dark: #2a9d3f;
+    --dark-color: #000000;
+    --light-color: #f8f9fa;
     --gray-light: #e9ecef;
-    --gray-medium: #adb5bd;
-    --gray-dark: #495057;
-    --success-color: #2a9d8f;
-    --warning-color: #f4a261;
-    --danger-color: #e63946;
-    --info-color: #457b9d;
+    --gray-medium: #6c757d;
+    --gray-dark: #343a40;
+    --success-color: #34bf49;
+    --warning-color: #ffc107;
+    --danger-color: #ff4c4c;
+    --info-color: #0099e5;
     
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -64,7 +67,7 @@ h2 {
 
 h3 {
     font-size: 1.4rem;
-    color: var(--primary-dark);
+    color: var(--primary-color);
 }
 
 p {
@@ -73,7 +76,7 @@ p {
 
 /* Header */
 header {
-    background: linear-gradient(135deg, var(--dark-color) 0%, #1d3557 100%);
+    background: linear-gradient(135deg, var(--dark-color) 0%, #1a1a1a 100%);
     color: white;
     padding: 1rem 0;
     box-shadow: var(--shadow);
@@ -120,6 +123,27 @@ header {
     flex-wrap: wrap;
 }
 
+/* Visitor Counter */
+.visitor-counter {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.visitor-counter i {
+    color: var(--primary-color);
+}
+
+.visitor-count {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
 /* Buttons */
 .btn {
     padding: 0.5rem 1rem;
@@ -164,7 +188,7 @@ header {
 }
 
 .btn-success:hover {
-    background-color: var(--secondary-dark);
+    background-color: var(--accent-dark);
     transform: translateY(-2px);
 }
 
@@ -174,7 +198,7 @@ header {
 }
 
 .btn-danger:hover {
-    background-color: #b91d1d;
+    background-color: #d32f2f;
     transform: translateY(-2px);
 }
 
@@ -184,13 +208,24 @@ header {
 }
 
 .btn-info:hover {
-    background-color: #386890;
+    background-color: #006db3;
     transform: translateY(-2px);
 }
 
 .btn-sm {
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
+}
+
+/* Print/Save PDF Button */
+.btn-print {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-print:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
 }
 
 /* Form Navigation */
@@ -348,7 +383,7 @@ header {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 76, 76, 0.1);
 }
 
 .form-group input[type="date"] {
@@ -455,7 +490,7 @@ header {
 
 .hazard-option input:checked + .hazard-content {
     border-color: var(--primary-color);
-    background-color: rgba(230, 57, 70, 0.05);
+    background-color: rgba(255, 76, 76, 0.05);
     transform: translateY(-2px);
     box-shadow: var(--shadow);
 }
@@ -602,7 +637,7 @@ table {
 }
 
 thead {
-    background: linear-gradient(135deg, var(--dark-color) 0%, #1d3557 100%);
+    background: linear-gradient(135deg, var(--dark-color) 0%, #1a1a1a 100%);
     color: white;
 }
 
@@ -774,69 +809,110 @@ tbody tr:hover {
     border-radius: var(--border-radius);
 }
 
-/* Resources Section */
-.resources-section {
+/* Tools & Resources Section */
+.tools-resources-section {
     margin: 3rem 0;
     padding: 2rem;
     background: linear-gradient(135deg, var(--light-color) 0%, #e9ecef 100%);
     border-radius: var(--border-radius);
 }
 
-.resources-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin: 1.5rem 0;
+.tools-category {
+    margin-bottom: 2rem;
 }
 
-.resource-card {
+.tools-category h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tool-card {
     background: white;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     transition: var(--transition);
-    text-align: center;
+    border-left: 4px solid var(--primary-color);
 }
 
-.resource-card:hover {
-    transform: translateY(-5px);
+.tool-card:hover {
+    transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
 }
 
-.resource-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.resource-card h3 {
+.tool-card h4 {
     color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.tool-card p {
+    color: var(--gray-medium);
+    font-size: 0.85rem;
     margin-bottom: 0.75rem;
-    font-size: 1.2rem;
+    line-height: 1.4;
 }
 
-.resource-card p {
-    color: var(--gray-dark);
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-}
-
-.resource-link {
+.tool-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     color: var(--secondary-color);
     text-decoration: none;
     font-weight: 500;
+    font-size: 0.85rem;
     transition: var(--transition);
-    font-size: 0.9rem;
 }
 
-.resource-link:hover {
+.tool-link:hover {
     color: var(--secondary-dark);
     gap: 0.75rem;
 }
 
+/* Social Links */
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: white;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--gray-dark);
+    font-size: 0.85rem;
+    transition: var(--transition);
+    border: 1px solid var(--gray-light);
+}
+
+.social-link:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.social-link i {
+    font-size: 1rem;
+}
+
+/* Amazon Section */
 .amazon-section, .coffee-section {
     background: white;
     padding: 1.5rem;
@@ -902,8 +978,8 @@ footer {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
     margin-bottom: 1.5rem;
 }
 
@@ -918,6 +994,7 @@ footer {
 .footer-section p {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
 }
 
 .footer-section ul {
@@ -941,6 +1018,24 @@ footer {
 .footer-section ul li a:hover {
     color: var(--primary-color);
     padding-left: 5px;
+}
+
+.contact-info {
+    margin-top: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.contact-item i {
+    color: var(--primary-color);
+    margin-top: 0.25rem;
 }
 
 /* Legal Links */
@@ -982,7 +1077,7 @@ footer {
 }
 
 .footer-disclaimer {
-    background: rgba(230, 57, 70, 0.1);
+    background: rgba(255, 76, 76, 0.1);
     padding: 0.75rem;
     border-radius: var(--border-radius);
     margin-top: 0.75rem;
@@ -1100,7 +1195,7 @@ footer {
 }
 
 .legal-modal .modal-body h4 {
-    color: var(--primary-dark);
+    color: var(--primary-color);
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
@@ -1111,6 +1206,7 @@ footer {
     margin-bottom: 1rem;
     font-size: 0.95rem;
     color: var(--gray-dark);
+    line-height: 1.6;
 }
 
 .legal-modal .modal-body h4:first-child {
@@ -1141,6 +1237,10 @@ footer {
     .header-actions {
         width: 100%;
         justify-content: center;
+    }
+    
+    .visitor-counter {
+        margin-top: 0.5rem;
     }
     
     .nav-steps {
@@ -1217,7 +1317,7 @@ footer {
         padding: 1rem;
     }
     
-    .resources-grid {
+    .tools-grid {
         grid-template-columns: 1fr;
     }
     
@@ -1234,6 +1334,10 @@ footer {
     .modal-content {
         padding: 1.5rem;
         margin: 1rem;
+    }
+    
+    .social-links {
+        justify-content: center;
     }
 }
 
@@ -1254,8 +1358,13 @@ footer {
     .form-navigation,
     .audit-form-section,
     .extinguisher-list-section,
-    .resources-section,
+    .tools-resources-section,
     footer {
         display: none !important;
     }
+    
+    .report-preview-section {
+        margin: 0;
+    }
 }
+[file content end]
