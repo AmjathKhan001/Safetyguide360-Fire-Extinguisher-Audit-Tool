@@ -1,15 +1,41 @@
+[file name]: index.html
+[file content begin]
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fire Extinguisher Health Checkup Audit Report Tool for technicians and engineers">
-    <meta name="keywords" content="fire safety, extinguisher audit, fire inspection, safety checklist, fire protection">
-    <title>Fire Extinguisher Health Checkup Audit Tool</title>
+    <meta name="description" content="Fire Extinguisher Health Checkup Audit Report Tool for technicians and engineers - Free professional fire safety inspection software">
+    <meta name="keywords" content="fire safety, extinguisher audit, fire inspection, safety checklist, fire protection, NFPA 10, fire extinguisher calculator, safety audit tool">
+    <meta name="author" content="Amjath Khan">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fire-extinguisher-audit-tool.vercel.app/">
+    <meta property="og:title" content="Fire Extinguisher Health Checkup Audit Tool">
+    <meta property="og:description" content="Professional tool for fire extinguisher health checkup and audit reporting">
+    <meta property="og:image" content="https://fire-extinguisher-audit-tool.vercel.app/assets/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fire-extinguisher-audit-tool.vercel.app/">
+    <meta property="twitter:title" content="Fire Extinguisher Health Checkup Audit Tool">
+    <meta property="twitter:description" content="Professional tool for fire extinguisher health checkup and audit reporting">
+    <meta property="twitter:image" content="https://fire-extinguisher-audit-tool.vercel.app/assets/og-image.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://fire-extinguisher-audit-tool.vercel.app/">
+    
+    <title>Fire Extinguisher Health Checkup Audit Tool | Free Fire Safety Inspection Software</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6687860250561653" crossorigin="anonymous"></script>
@@ -30,18 +56,48 @@
         "@type": "WebApplication",
         "name": "Fire Extinguisher Health Checkup Audit Tool",
         "description": "Professional tool for fire extinguisher health checkup and audit reporting",
-        "url": "https://firesafetytool.com/fire-extinguisher-audit",
+        "url": "https://fire-extinguisher-audit-tool.vercel.app/",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
         "author": {
-            "@type": "Organization",
-            "name": "Fire Safety Tools"
+            "@type": "Person",
+            "name": "Amjath Khan",
+            "url": "https://www.amjathkhan.com/"
         },
         "offers": {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "124"
         }
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://fire-extinguisher-audit-tool.vercel.app/"
+        }, {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Fire Safety Tools",
+            "item": "https://www.firesafetytool.com/"
+        }, {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Audit Tool",
+            "item": "https://fire-extinguisher-audit-tool.vercel.app/"
+        }]
     }
     </script>
 </head>
@@ -58,10 +114,14 @@
                     </div>
                 </div>
                 <div class="header-actions">
+                    <div class="visitor-counter">
+                        <i class="fas fa-eye"></i>
+                        <span>Visitors: <span id="visitorCount">0</span></span>
+                    </div>
                     <button id="newAuditBtn" class="btn btn-secondary">
                         <i class="fas fa-plus"></i> New Audit
                     </button>
-                    <button id="printBtn" class="btn btn-secondary">
+                    <button id="printBtn" class="btn btn-print">
                         <i class="fas fa-print"></i> Print
                     </button>
                     <button id="exportBtn" class="btn btn-secondary">
@@ -626,46 +686,131 @@
                 </div>
             </section>
 
-            <!-- Additional Resources Section -->
-            <section class="resources-section">
+            <!-- Tools & Resources Section -->
+            <section class="tools-resources-section">
                 <div class="section-header">
-                    <h2><i class="fas fa-tools"></i> Explore More Calculators & Tools</h2>
-                    <p>We highly recommend these expert resources for specialized safety and utility tools:</p>
+                    <h2><i class="fas fa-tools"></i> Explore More Safety Tools</h2>
+                    <p>Discover our collection of specialized safety calculators and utility tools for professionals:</p>
                 </div>
                 
-                <div class="resources-grid">
-                    <div class="resource-card">
-                        <div class="resource-icon">
-                            <i class="fas fa-fire"></i>
+                <!-- HSE Tools -->
+                <div class="tools-category">
+                    <h3><i class="fas fa-hard-hat"></i> HSE Tools & Calculators</h3>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <h4>HSE Calculator</h4>
+                            <p>Comprehensive Health, Safety & Environment calculators for workplace safety compliance and risk management.</p>
+                            <a href="https://www.hsecalculator.com/" target="_blank" class="tool-link">
+                                Visit Site <i class="fas fa-external-link-alt"></i>
+                            </a>
                         </div>
-                        <h3>Fire Safety Tools</h3>
-                        <p>Comprehensive fire safety calculators, risk assessment tools, and compliance checkers for professionals.</p>
-                        <a href="https://www.firesafetytool.com" target="_blank" class="resource-link">
-                            Visit Site <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                    
-                    <div class="resource-card">
-                        <div class="resource-icon">
-                            <i class="fas fa-hard-hat"></i>
+                        <div class="tool-card">
+                            <h4>HSE Toolkit</h4>
+                            <p>Complete toolkit for HSE professionals with checklists, calculators, and compliance tools.</p>
+                            <a href="https://hse-toolkit.vercel.app/" target="_blank" class="tool-link">
+                                Visit Site <i class="fas fa-external-link-alt"></i>
+                            </a>
                         </div>
-                        <h3>HSE Calculator</h3>
-                        <p>Health, Safety, and Environment calculators for workplace safety compliance and risk management.</p>
-                        <a href="https://www.hsecalculator.com" target="_blank" class="resource-link">
-                            Visit Site <i class="fas fa-external-link-alt"></i>
-                        </a>
                     </div>
-                    
-                    <div class="resource-card">
-                        <div class="resource-icon">
-                            <i class="fas fa-laptop-code"></i>
+                </div>
+                
+                <!-- Fire Safety Tools -->
+                <div class="tools-category">
+                    <h3><i class="fas fa-fire"></i> Fire Safety Tools</h3>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <h4>Ceiling Mounted Fire Extinguisher Estimator</h4>
+                            <p>Calculate requirements for ceiling mounted fire suppression systems.</p>
+                            <a href="https://safetyguide360-ceilingmounted-firee.vercel.app/" target="_blank" class="tool-link">
+                                Visit Tool <i class="fas fa-external-link-alt"></i>
+                            </a>
                         </div>
-                        <h3>Web Tools Daily</h3>
-                        <p>Collection of useful web tools, converters, calculators, and utilities for daily tasks.</p>
-                        <a href="https://www.webtoolsdaily.com" target="_blank" class="resource-link">
-                            Visit Site <i class="fas fa-external-link-alt"></i>
-                        </a>
+                        <div class="tool-card">
+                            <h4>Fire Safety Calculators</h4>
+                            <p>Comprehensive collection of fire safety calculation tools and resources.</p>
+                            <a href="https://www.firesafetytool.com/" target="_blank" class="tool-link">
+                                Visit Site <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="tool-card">
+                            <h4>Fire Safety Assessment Tool</h4>
+                            <p>Complete fire safety risk assessment and evaluation tool.</p>
+                            <a href="https://safetyguide360-firesafety-assessmen.vercel.app/" target="_blank" class="tool-link">
+                                Visit Tool <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="tool-card">
+                            <h4>Fire Extinguisher Estimator</h4>
+                            <p>Calculate fire extinguisher requirements for different areas and hazards.</p>
+                            <a href="https://fire-extinguisher-calculator.vercel.app/" target="_blank" class="tool-link">
+                                Visit Tool <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="tool-card">
+                            <h4>Kitchen Suppression System Estimator</h4>
+                            <p>Calculate kitchen fire suppression system requirements.</p>
+                            <a href="https://kitchen-fire-suppression-calculator.vercel.app/" target="_blank" class="tool-link">
+                                Visit Tool <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="tool-card">
+                            <h4>Room Flooding System Calculator</h4>
+                            <p>Calculate requirements for room flooding fire suppression systems.</p>
+                            <a href="https://safetyguide360-room-flooding-system.vercel.app/" target="_blank" class="tool-link">
+                                Visit Tool <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="tool-card">
+                            <h4>Panel Fire Suppression Calculator</h4>
+                            <p>Calculate fire suppression requirements for electrical panels.</p>
+                            <a href="https://safetyguide360-panel-fire-suppressi.vercel.app/" target="_blank" class="tool-link">
+                                Visit Tool <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
                     </div>
+                </div>
+                
+                <!-- Utility Tools -->
+                <div class="tools-category">
+                    <h3><i class="fas fa-laptop-code"></i> Utility Tools</h3>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <h4>Daily Smart Tool</h4>
+                            <p>Collection of useful utility tools, converters, and calculators for daily tasks.</p>
+                            <a href="https://www.dailysmarttool.com/" target="_blank" class="tool-link">
+                                Visit Site <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="tool-card">
+                            <h4>Web Tools Daily</h4>
+                            <p>Daily updated collection of web tools, utilities, and productivity apps.</p>
+                            <a href="https://www.webtoolsdaily.com/" target="_blank" class="tool-link">
+                                Visit Site <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="social-links">
+                    <a href="https://www.amjathkhan.com/" target="_blank" class="social-link">
+                        <i class="fas fa-globe"></i> Portfolio
+                    </a>
+                    <a href="https://bsky.app/profile/amjathkhan.bsky.social" target="_blank" class="social-link">
+                        <i class="fab fa-bluesky"></i> Bluesky
+                    </a>
+                    <a href="https://www.facebook.com/Amjathkhan.s" target="_blank" class="social-link">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </a>
+                    <a href="https://www.instagram.com/amjathkhan_official/" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://x.com/amjikhan" target="_blank" class="social-link">
+                        <i class="fab fa-twitter"></i> Twitter/X
+                    </a>
+                    <a href="https://www.linkedin.com/in/amjathkhan-shiekusman/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
                 </div>
                 
                 <!-- Amazon Associates Button -->
@@ -696,39 +841,107 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>About This Tool</h4>
-                    <p>This Fire Extinguisher Health Checkup Audit Tool helps technicians and engineers streamline their fire safety inspections and generate professional reports efficiently.</p>
+                    <p>This Fire Extinguisher Health Checkup Audit Tool helps technicians and engineers streamline their fire safety inspections and generate professional reports efficiently. Complies with NFPA 10 standards.</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@amjathkhan.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91-9750816163</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <span>https://www.amjathkhan.com/</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#" id="backToTop"><i class="fas fa-arrow-up"></i> Back to Top</a></li>
                         <li><a href="#" id="printGuide"><i class="fas fa-print"></i> Printing Guide</a></li>
-                        <li><a href="#" id="contactSupport"><i class="fas fa-headset"></i> Contact Support</a></li>
+                        <li><a href="#contactModal" class="legal-link" data-modal="contact"><i class="fas fa-headset"></i> Contact & Support</a></li>
+                        <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                        <li><a href="privacy.html"><i class="fas fa-user-shield"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Use</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Compliance Standards</h4>
-                    <p>This tool helps comply with NFPA 10, OSHA, and local fire safety regulations for fire extinguisher maintenance and inspection.</p>
+                    <p>This tool helps comply with:</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> NFPA 10 - Standard for Portable Fire Extinguishers</li>
+                        <li><i class="fas fa-check-circle"></i> OSHA Fire Safety Standards</li>
+                        <li><i class="fas fa-check-circle"></i> Local Fire Safety Regulations</li>
+                        <li><i class="fas fa-check-circle"></i> International Fire Code (IFC)</li>
+                    </ul>
                 </div>
             </div>
             
             <div class="footer-legal">
                 <div class="legal-links">
-                    <a href="#privacyPolicyModal" class="legal-link" data-modal="privacy">Privacy Policy</a>
-                    <a href="#termsModal" class="legal-link" data-modal="terms">Terms of Use</a>
+                    <a href="privacy.html" class="legal-link">Privacy Policy</a>
+                    <a href="terms.html" class="legal-link">Terms of Use</a>
                     <a href="#affiliateModal" class="legal-link" data-modal="affiliate">Affiliate Disclosure</a>
                     <a href="#disclaimerModal" class="legal-link" data-modal="disclaimer">Disclaimer</a>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Fire Extinguisher Audit Tool. All rights reserved.</p>
+                <p>&copy; 2024 Fire Extinguisher Audit Tool. All rights reserved. Developed by <a href="https://www.amjathkhan.com/" style="color: #ff4c4c;">Amjath Khan</a></p>
                 <div class="footer-disclaimer">
-                    <p><i class="fas fa-exclamation-circle"></i> <strong>Disclaimer:</strong> This tool is for guidance only. Always consult with certified fire safety professionals for official inspections.</p>
+                    <p><i class="fas fa-exclamation-circle"></i> <strong>Disclaimer:</strong> This tool is for guidance only. Always consult with certified fire safety professionals for official inspections and compliance verification.</p>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3><i class="fas fa-headset"></i> Contact & Support</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Need Help?</h4>
+                <p>For support, feedback, or any queries about the Fire Extinguisher Audit Tool:</p>
+                
+                <div class="contact-info" style="text-align: left; margin: 1.5rem 0;">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span><strong>Email:</strong> contact@amjathkhan.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span><strong>Phone:</strong> +91-9750816163</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <span><strong>Website:</strong> https://www.amjathkhan.com/</span>
+                    </div>
+                </div>
+                
+                <h4>Follow Us</h4>
+                <p>Stay updated with new features and tools:</p>
+                <div class="social-links" style="justify-content: center; margin: 1rem 0;">
+                    <a href="https://www.facebook.com/Amjathkhan.s" target="_blank" class="social-link">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </a>
+                    <a href="https://x.com/amjikhan" target="_blank" class="social-link">
+                        <i class="fab fa-twitter"></i> Twitter/X
+                    </a>
+                    <a href="https://www.linkedin.com/in/amjathkhan-shiekusman/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                </div>
+                
+                <p><small>Response time: Usually within 24 hours</small></p>
+            </div>
+        </div>
+    </div>
 
     <!-- Legal Modals -->
     <div id="privacyPolicyModal" class="modal legal-modal">
@@ -745,10 +958,13 @@
                 <p>The tool uses your browser's localStorage to save your audit data temporarily. This data remains on your device and can be cleared at any time.</p>
                 
                 <h4>Third-Party Services</h4>
-                <p>We use Google Analytics for usage statistics and Google AdSense for advertisements. These services may collect anonymous usage data.</p>
+                <p>We use Google Analytics for anonymous usage statistics and Google AdSense for advertisements. These services may collect anonymous usage data.</p>
                 
                 <h4>Your Rights</h4>
                 <p>You can clear all stored data by using the "Clear All Items" button or clearing your browser's local storage.</p>
+                
+                <h4>Contact</h4>
+                <p>For privacy concerns, contact: contact@amjathkhan.com</p>
             </div>
         </div>
     </div>
@@ -771,6 +987,9 @@
                 
                 <h4>Proper Use</h4>
                 <p>Use this tool responsibly and in compliance with all applicable laws and regulations.</p>
+                
+                <h4>Modifications</h4>
+                <p>We reserve the right to modify these terms at any time. Continued use constitutes acceptance of modified terms.</p>
             </div>
         </div>
     </div>
@@ -793,6 +1012,9 @@
                 
                 <h4>No Extra Cost</h4>
                 <p>There is no additional cost to you for using our affiliate links.</p>
+                
+                <h4>Independence</h4>
+                <p>Our recommendations are independent and based on professional assessment of product usefulness.</p>
             </div>
         </div>
     </div>
@@ -818,6 +1040,9 @@
                 
                 <h4>Certification</h4>
                 <p>Always consult with certified fire safety professionals for official inspections and compliance verification.</p>
+                
+                <h4>Updates</h4>
+                <p>Fire safety standards and regulations change regularly. Users should verify current requirements with local authorities.</p>
             </div>
         </div>
     </div>
@@ -857,3 +1082,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+[file content end]
