@@ -1,5 +1,4 @@
-[file name]: script.js
-[file content begin]
+// Fire Extinguisher Audit Tool - Script.js
 // Global Variables
 let extinguishers = [];
 let currentSno = 1;
@@ -8,14 +7,22 @@ let visitorCount = 0;
 
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Fire Extinguisher Audit Tool loaded');
+    
     // Set today's date as default
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('auditDate').value = today;
+    const auditDateInput = document.getElementById('auditDate');
+    if (auditDateInput) {
+        auditDateInput.value = today;
+    }
     
     // Set expiry date to 1 year from today
     const nextYear = new Date();
     nextYear.setFullYear(nextYear.getFullYear() + 1);
-    document.getElementById('expiryDate').value = nextYear.toISOString().split('T')[0];
+    const expiryDateInput = document.getElementById('expiryDate');
+    if (expiryDateInput) {
+        expiryDateInput.value = nextYear.toISOString().split('T')[0];
+    }
     
     // Initialize event listeners
     initializeEventListeners();
@@ -34,98 +41,124 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeEventListeners() {
+    console.log('Initializing event listeners');
+    
     // Step navigation
-    document.getElementById('nextToStep2').addEventListener('click', () => goToStep(2));
-    document.getElementById('skipBasicBtn').addEventListener('click', () => goToStep(2));
+    const nextToStep2Btn = document.getElementById('nextToStep2');
+    if (nextToStep2Btn) {
+        nextToStep2Btn.addEventListener('click', () => goToStep(2));
+    }
     
-    document.getElementById('nextToStep3').addEventListener('click', () => goToStep(3));
-    document.getElementById('backToStep1').addEventListener('click', () => goToStep(1));
+    const skipBasicBtn = document.getElementById('skipBasicBtn');
+    if (skipBasicBtn) {
+        skipBasicBtn.addEventListener('click', () => goToStep(2));
+    }
     
-    document.getElementById('nextToStep4').addEventListener('click', () => goToStep(4));
-    document.getElementById('backToStep2').addEventListener('click', () => goToStep(2));
+    const nextToStep3Btn = document.getElementById('nextToStep3');
+    if (nextToStep3Btn) {
+        nextToStep3Btn.addEventListener('click', () => goToStep(3));
+    }
     
-    document.getElementById('backToStep3').addEventListener('click', () => goToStep(3));
-    document.getElementById('addToAuditBtn').addEventListener('click', addExtinguisherFromReview);
-    document.getElementById('addAndNewBtn').addEventListener('click', addExtinguisherAndStartNew);
+    const backToStep1Btn = document.getElementById('backToStep1');
+    if (backToStep1Btn) {
+        backToStep1Btn.addEventListener('click', () => goToStep(1));
+    }
+    
+    const nextToStep4Btn = document.getElementById('nextToStep4');
+    if (nextToStep4Btn) {
+        nextToStep4Btn.addEventListener('click', () => goToStep(4));
+    }
+    
+    const backToStep2Btn = document.getElementById('backToStep2');
+    if (backToStep2Btn) {
+        backToStep2Btn.addEventListener('click', () => goToStep(2));
+    }
+    
+    const backToStep3Btn = document.getElementById('backToStep3');
+    if (backToStep3Btn) {
+        backToStep3Btn.addEventListener('click', () => goToStep(3));
+    }
+    
+    const addToAuditBtn = document.getElementById('addToAuditBtn');
+    if (addToAuditBtn) {
+        addToAuditBtn.addEventListener('click', addExtinguisherFromReview);
+    }
+    
+    const addAndNewBtn = document.getElementById('addAndNewBtn');
+    if (addAndNewBtn) {
+        addAndNewBtn.addEventListener('click', addExtinguisherAndStartNew);
+    }
     
     // New Audit button
-    document.getElementById('newAuditBtn').addEventListener('click', startNewAudit);
+    const newAuditBtn = document.getElementById('newAuditBtn');
+    if (newAuditBtn) {
+        newAuditBtn.addEventListener('click', startNewAudit);
+    }
     
     // Clear list button
-    document.getElementById('clearListBtn').addEventListener('click', function() {
-        showConfirmModal(
-            'Clear All Items',
-            'Are you sure you want to clear all extinguishers from the list? This action cannot be undone.',
-            clearAllExtinguishers
-        );
-    });
+    const clearListBtn = document.getElementById('clearListBtn');
+    if (clearListBtn) {
+        clearListBtn.addEventListener('click', function() {
+            showConfirmModal(
+                'Clear All Items',
+                'Are you sure you want to clear all extinguishers from the list? This action cannot be undone.',
+                clearAllExtinguishers
+            );
+        });
+    }
     
     // Export list button
-    document.getElementById('exportListBtn').addEventListener('click', exportToCSV);
+    const exportListBtn = document.getElementById('exportListBtn');
+    if (exportListBtn) {
+        exportListBtn.addEventListener('click', exportToCSV);
+    }
     
     // Print button
-    document.getElementById('printBtn').addEventListener('click', printReport);
+    const printBtn = document.getElementById('printBtn');
+    if (printBtn) {
+        printBtn.addEventListener('click', printReport);
+    }
     
     // Export PDF button
-    document.getElementById('exportBtn').addEventListener('click', exportToPDF);
+    const exportBtn = document.getElementById('exportBtn');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', exportToPDF);
+    }
     
     // Save PDF button
-    document.getElementById('savePdfBtn')?.addEventListener('click', saveAsPDF);
+    const savePdfBtn = document.getElementById('savePdfBtn');
+    if (savePdfBtn) {
+        savePdfBtn.addEventListener('click', saveAsPDF);
+    }
     
     // Generate report button
-    document.getElementById('generateReportBtn').addEventListener('click', generateReport);
+    const generateReportBtn = document.getElementById('generateReportBtn');
+    if (generateReportBtn) {
+        generateReportBtn.addEventListener('click', generateReport);
+    }
     
     // Load sample data button
-    document.getElementById('loadSampleBtn').addEventListener('click', loadSampleData);
-    
-    // Modal buttons
-    document.getElementById('modalOkBtn').addEventListener('click', closeSuccessModal);
-    document.getElementById('modalCancelBtn').addEventListener('click', closeConfirmModal);
-    document.getElementById('modalConfirmBtn').addEventListener('click', executeConfirmedAction);
-    
-    // Close modals on X click
-    document.querySelectorAll('.close-modal').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.style.display = 'none';
-            });
-        });
-    });
-    
-    // Legal modal links
-    document.querySelectorAll('.legal-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modalId = this.getAttribute('data-modal');
-            if (modalId === 'privacy') {
-                document.getElementById('privacyPolicyModal').style.display = 'flex';
-            } else if (modalId === 'terms') {
-                document.getElementById('termsModal').style.display = 'flex';
-            } else if (modalId === 'affiliate') {
-                document.getElementById('affiliateModal').style.display = 'flex';
-            } else if (modalId === 'disclaimer') {
-                document.getElementById('disclaimerModal').style.display = 'flex';
-            } else if (modalId === 'contact') {
-                document.getElementById('contactModal').style.display = 'flex';
-            }
-        });
-    });
+    const loadSampleBtn = document.getElementById('loadSampleBtn');
+    if (loadSampleBtn) {
+        loadSampleBtn.addEventListener('click', loadSampleData);
+    }
     
     // Footer links
-    document.getElementById('backToTop').addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
     
-    document.getElementById('printGuide').addEventListener('click', function(e) {
-        e.preventDefault();
-        showSuccessModal('Printing Guide', 'For best results, use landscape orientation and check "Background graphics" in print settings.');
-    });
-    
-    document.getElementById('contactSupport').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('contactModal').style.display = 'flex';
-    });
+    const printGuide = document.getElementById('printGuide');
+    if (printGuide) {
+        printGuide.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSuccessModal('Printing Guide', 'For best results, use landscape orientation and check "Background graphics" in print settings.');
+        });
+    }
     
     // Auto-save on input changes
     setupAutoSave();
@@ -149,43 +182,19 @@ function initializeEventListeners() {
     });
     
     // Update recommended type based on area type and hazards
-    document.getElementById('areaType').addEventListener('change', updateRecommendedType);
+    const areaTypeSelect = document.getElementById('areaType');
+    if (areaTypeSelect) {
+        areaTypeSelect.addEventListener('change', updateRecommendedType);
+    }
     
     // Close search results when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.search-container')) {
-            document.getElementById('extinguisherSearchResults').style.display = 'none';
-            document.getElementById('capacitySearchResults').style.display = 'none';
-        }
-    });
-    
-    // Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-        // Ctrl+Enter to proceed to next step
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-            e.preventDefault();
-            if (currentStep < 4) {
-                goToStep(currentStep + 1);
-            } else if (currentStep === 4) {
-                addExtinguisherFromReview();
-            }
-        }
-        
-        // Ctrl+P to print
-        if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-            e.preventDefault();
-            printReport();
-        }
-        
-        // Ctrl+S to save PDF
-        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-            e.preventDefault();
-            saveAsPDF();
-        }
-        
-        // Escape to close modals
-        if (e.key === 'Escape') {
-            closeAllModals();
+            const extinguisherResults = document.getElementById('extinguisherSearchResults');
+            const capacityResults = document.getElementById('capacitySearchResults');
+            
+            if (extinguisherResults) extinguisherResults.style.display = 'none';
+            if (capacityResults) capacityResults.style.display = 'none';
         }
     });
 }
@@ -200,7 +209,10 @@ function initializeVisitorCounter() {
     localStorage.setItem('visitorCount', visitorCount.toString());
     
     // Update display
-    document.getElementById('visitorCount').textContent = visitorCount.toLocaleString();
+    const visitorCountElement = document.getElementById('visitorCount');
+    if (visitorCountElement) {
+        visitorCountElement.textContent = visitorCount.toLocaleString();
+    }
 }
 
 function initializeSocialLinks() {
@@ -217,76 +229,90 @@ function setupSearchFunctionality() {
     const extinguisherResults = document.getElementById('extinguisherSearchResults');
     const capacityResults = document.getElementById('capacitySearchResults');
     
+    if (!extinguisherNameInput || !capacityInput) return;
+    
     // Get unique capacities
     const uniqueCapacities = getUniqueCapacities();
     
     // Populate capacity suggestions
-    capacityResults.innerHTML = uniqueCapacities.map(capacity => 
-        `<div class="search-result-item" onclick="selectCapacity('${capacity}')">${capacity}</div>`
-    ).join('');
+    if (capacityResults && uniqueCapacities) {
+        capacityResults.innerHTML = uniqueCapacities.map(capacity => 
+            `<div class="search-result-item" onclick="selectCapacity('${capacity}')">${capacity}</div>`
+        ).join('');
+    }
     
     // Extinguisher name search
-    extinguisherNameInput.addEventListener('input', function() {
-        const query = this.value.trim();
-        
-        if (query.length < 2) {
-            extinguisherResults.style.display = 'none';
-            return;
-        }
-        
-        const results = searchFireExtinguishers(query);
-        
-        if (results.length > 0) {
-            extinguisherResults.innerHTML = results.map(ext => {
-                const displayText = `${ext.name} - ${ext.type} - ${ext.body} - ${ext.operating} - ${ext.agent} - ${ext.agentName} - ${ext.capacity}`;
-                const highlightedText = displayText.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
-                
-                return `<div class="search-result-item" onclick="selectExtinguisher(${JSON.stringify(ext).replace(/"/g, '&quot;')})">
-                    ${highlightedText}
-                </div>`;
-            }).join('');
+    if (extinguisherNameInput) {
+        extinguisherNameInput.addEventListener('input', function() {
+            const query = this.value.trim();
             
-            extinguisherResults.style.display = 'block';
-        } else {
-            extinguisherResults.style.display = 'none';
-        }
-    });
+            if (query.length < 2) {
+                if (extinguisherResults) extinguisherResults.style.display = 'none';
+                return;
+            }
+            
+            const results = searchFireExtinguishers(query);
+            
+            if (extinguisherResults && results.length > 0) {
+                extinguisherResults.innerHTML = results.map(ext => {
+                    const displayText = `${ext.name} - ${ext.type} - ${ext.body} - ${ext.operating} - ${ext.agent} - ${ext.agentName} - ${ext.capacity}`;
+                    const highlightedText = displayText.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
+                    
+                    return `<div class="search-result-item" onclick="selectExtinguisher(${JSON.stringify(ext).replace(/"/g, '&quot;')})">
+                        ${highlightedText}
+                    </div>`;
+                }).join('');
+                
+                extinguisherResults.style.display = 'block';
+            } else if (extinguisherResults) {
+                extinguisherResults.style.display = 'none';
+            }
+        });
+    }
     
     // Capacity search
-    capacityInput.addEventListener('input', function() {
-        const query = this.value.toLowerCase();
-        
-        if (query.length < 1) {
-            capacityResults.style.display = 'none';
-            return;
-        }
-        
-        const filteredCapacities = uniqueCapacities.filter(capacity => 
-            capacity.toLowerCase().includes(query)
-        );
-        
-        if (filteredCapacities.length > 0) {
-            capacityResults.innerHTML = filteredCapacities.map(capacity => {
-                const highlighted = capacity.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
-                return `<div class="search-result-item" onclick="selectCapacity('${capacity}')">${highlighted}</div>`;
-            }).join('');
+    if (capacityInput) {
+        capacityInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
             
-            capacityResults.style.display = 'block';
-        } else {
-            capacityResults.style.display = 'none';
-        }
-    });
+            if (query.length < 1) {
+                if (capacityResults) capacityResults.style.display = 'none';
+                return;
+            }
+            
+            const filteredCapacities = uniqueCapacities.filter(capacity => 
+                capacity.toLowerCase().includes(query)
+            );
+            
+            if (capacityResults && filteredCapacities.length > 0) {
+                capacityResults.innerHTML = filteredCapacities.map(capacity => {
+                    const highlighted = capacity.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
+                    return `<div class="search-result-item" onclick="selectCapacity('${capacity}')">${highlighted}</div>`;
+                }).join('');
+                
+                capacityResults.style.display = 'block';
+            } else if (capacityResults) {
+                capacityResults.style.display = 'none';
+            }
+        });
+    }
     
     // Focus management
-    extinguisherNameInput.addEventListener('focus', function() {
-        if (this.value.length >= 2) {
-            extinguisherResults.style.display = 'block';
-        }
-    });
+    if (extinguisherNameInput) {
+        extinguisherNameInput.addEventListener('focus', function() {
+            if (this.value.length >= 2 && extinguisherResults) {
+                extinguisherResults.style.display = 'block';
+            }
+        });
+    }
     
-    capacityInput.addEventListener('focus', function() {
-        capacityResults.style.display = 'block';
-    });
+    if (capacityInput) {
+        capacityInput.addEventListener('focus', function() {
+            if (capacityResults) {
+                capacityResults.style.display = 'block';
+            }
+        });
+    }
 }
 
 function selectExtinguisher(extinguisher) {
@@ -295,12 +321,22 @@ function selectExtinguisher(extinguisher) {
 }
 
 function selectCapacity(capacity) {
-    document.getElementById('capacity').value = capacity;
-    document.getElementById('capacitySearchResults').style.display = 'none';
+    const capacityInput = document.getElementById('capacity');
+    if (capacityInput) {
+        capacityInput.value = capacity;
+    }
+    
+    const capacityResults = document.getElementById('capacitySearchResults');
+    if (capacityResults) {
+        capacityResults.style.display = 'none';
+    }
+    
     updateReviewFromStep2();
 }
 
 function goToStep(step) {
+    console.log(`Going to step ${step}`);
+    
     // Validate current step before proceeding
     if (!validateCurrentStep()) {
         return;
@@ -312,7 +348,10 @@ function goToStep(step) {
     });
     
     // Show target step
-    document.getElementById(`step${step}`).classList.add('active');
+    const targetStep = document.getElementById(`step${step}`);
+    if (targetStep) {
+        targetStep.classList.add('active');
+    }
     
     // Update navigation steps
     document.querySelectorAll('.nav-step').forEach((navStep, index) => {
@@ -332,16 +371,19 @@ function goToStep(step) {
     currentStep = step;
     
     // Scroll to form section
-    document.querySelector('.audit-form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const formSection = document.querySelector('.audit-form-section');
+    if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 function validateCurrentStep() {
     switch (currentStep) {
         case 1:
-            const accountName = document.getElementById('accountName').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const auditDate = document.getElementById('auditDate').value;
-            const contactPerson = document.getElementById('contactPerson').value.trim();
+            const accountName = document.getElementById('accountName')?.value.trim();
+            const address = document.getElementById('address')?.value.trim();
+            const auditDate = document.getElementById('auditDate')?.value;
+            const contactPerson = document.getElementById('contactPerson')?.value.trim();
             
             if (!accountName || !address || !auditDate || !contactPerson) {
                 showSuccessModal('Required Fields', 'Please fill in all required fields (marked with *) in Basic Information.');
@@ -350,13 +392,13 @@ function validateCurrentStep() {
             break;
             
         case 2:
-            const location = document.getElementById('location').value.trim();
-            const extinguisherName = document.getElementById('extinguisherName').value.trim();
-            const extinguisherType = document.getElementById('extinguisherType').value;
-            const capacity = document.getElementById('capacity').value;
-            const quantity = document.getElementById('quantity').value;
-            const expiryDate = document.getElementById('expiryDate').value;
-            const status = document.getElementById('status').value;
+            const location = document.getElementById('location')?.value.trim();
+            const extinguisherName = document.getElementById('extinguisherName')?.value.trim();
+            const extinguisherType = document.getElementById('extinguisherType')?.value;
+            const capacity = document.getElementById('capacity')?.value;
+            const quantity = document.getElementById('quantity')?.value;
+            const expiryDate = document.getElementById('expiryDate')?.value;
+            const status = document.getElementById('status')?.value;
             
             if (!location || !extinguisherName || !extinguisherType || !capacity || !quantity || !expiryDate || !status) {
                 showSuccessModal('Required Fields', 'Please fill in all required fields (marked with *) in Extinguisher Details.');
@@ -365,7 +407,7 @@ function validateCurrentStep() {
             break;
             
         case 3:
-            const areaType = document.getElementById('areaType').value;
+            const areaType = document.getElementById('areaType')?.value;
             const hasHazards = document.querySelectorAll('.hazard-option input:checked').length > 0;
             
             if (!areaType) {
@@ -393,12 +435,19 @@ function startNewAudit() {
             currentSno = 1;
             
             // Clear form
-            document.getElementById('accountName').value = '';
-            document.getElementById('address').value = '';
-            document.getElementById('auditDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('contactPerson').value = '';
-            document.getElementById('contactPhone').value = '';
-            document.getElementById('contactEmail').value = '';
+            const accountName = document.getElementById('accountName');
+            const address = document.getElementById('address');
+            const auditDate = document.getElementById('auditDate');
+            const contactPerson = document.getElementById('contactPerson');
+            const contactPhone = document.getElementById('contactPhone');
+            const contactEmail = document.getElementById('contactEmail');
+            
+            if (accountName) accountName.value = '';
+            if (address) address.value = '';
+            if (auditDate) auditDate.value = new Date().toISOString().split('T')[0];
+            if (contactPerson) contactPerson.value = '';
+            if (contactPhone) contactPhone.value = '';
+            if (contactEmail) contactEmail.value = '';
             
             // Reset to step 1
             goToStep(1);
@@ -417,57 +466,104 @@ function startNewAudit() {
 }
 
 function updateReviewFromStep1() {
-    document.getElementById('reviewCompany').textContent = document.getElementById('accountName').value || '-';
-    document.getElementById('reviewAddress').textContent = document.getElementById('address').value || '-';
+    const reviewCompany = document.getElementById('reviewCompany');
+    const reviewAddress = document.getElementById('reviewAddress');
+    const reviewContact = document.getElementById('reviewContact');
     
-    const contactPerson = document.getElementById('contactPerson').value;
-    const contactPhone = document.getElementById('contactPhone').value;
-    const contactEmail = document.getElementById('contactEmail').value;
+    if (reviewCompany) {
+        const accountName = document.getElementById('accountName');
+        reviewCompany.textContent = accountName ? accountName.value || '-' : '-';
+    }
     
-    let contactInfo = contactPerson || '-';
-    if (contactPhone) contactInfo += ` | ${contactPhone}`;
-    if (contactEmail) contactInfo += ` | ${contactEmail}`;
+    if (reviewAddress) {
+        const address = document.getElementById('address');
+        reviewAddress.textContent = address ? address.value || '-' : '-';
+    }
     
-    document.getElementById('reviewContact').textContent = contactInfo;
+    if (reviewContact) {
+        const contactPerson = document.getElementById('contactPerson')?.value;
+        const contactPhone = document.getElementById('contactPhone')?.value;
+        const contactEmail = document.getElementById('contactEmail')?.value;
+        
+        let contactInfo = contactPerson || '-';
+        if (contactPhone) contactInfo += ` | ${contactPhone}`;
+        if (contactEmail) contactInfo += ` | ${contactEmail}`;
+        
+        reviewContact.textContent = contactInfo;
+    }
 }
 
 function updateReviewFromStep2() {
-    document.getElementById('reviewLocation').textContent = document.getElementById('location').value || '-';
-    document.getElementById('reviewName').textContent = document.getElementById('extinguisherName').value || '-';
-    document.getElementById('reviewType').textContent = document.getElementById('extinguisherType').value || '-';
-    document.getElementById('reviewCapacity').textContent = document.getElementById('capacity').value || '-';
-    document.getElementById('reviewQuantity').textContent = document.getElementById('quantity').value || '1';
-    document.getElementById('reviewStatus').textContent = document.getElementById('status').value || '-';
-    document.getElementById('reviewExpiry').textContent = formatDate(document.getElementById('expiryDate').value) || '-';
+    const elements = {
+        reviewLocation: 'location',
+        reviewName: 'extinguisherName',
+        reviewType: 'extinguisherType',
+        reviewCapacity: 'capacity',
+        reviewQuantity: 'quantity',
+        reviewStatus: 'status',
+        reviewExpiry: 'expiryDate',
+        reviewRecommend: 'recommendReplacement'
+    };
     
-    const recommend = document.getElementById('recommendReplacement').checked;
-    document.getElementById('reviewRecommend').textContent = recommend ? 'Yes' : 'No';
+    for (const [reviewId, inputId] of Object.entries(elements)) {
+        const reviewElement = document.getElementById(reviewId);
+        if (reviewElement) {
+            if (inputId === 'recommendReplacement') {
+                const checkbox = document.getElementById(inputId);
+                reviewElement.textContent = checkbox && checkbox.checked ? 'Yes' : 'No';
+            } else {
+                const inputElement = document.getElementById(inputId);
+                reviewElement.textContent = inputElement ? inputElement.value || (inputId === 'quantity' ? '1' : '-') : '-';
+                
+                // Special formatting for dates
+                if (inputId === 'expiryDate' && inputElement && inputElement.value) {
+                    reviewElement.textContent = formatDate(inputElement.value) || '-';
+                }
+            }
+        }
+    }
 }
 
 function updateReviewFromStep3() {
-    document.getElementById('reviewAreaType').textContent = document.getElementById('areaType').value || '-';
-    document.getElementById('reviewRiskLevel').textContent = document.getElementById('riskLevel').value || '-';
+    const reviewAreaType = document.getElementById('reviewAreaType');
+    const reviewRiskLevel = document.getElementById('reviewRiskLevel');
+    const reviewHazards = document.getElementById('reviewHazards');
+    const reviewRemarks = document.getElementById('reviewRemarks');
     
-    // Get selected hazards
-    const selectedHazards = Array.from(document.querySelectorAll('.hazard-option input:checked'))
-        .map(cb => cb.value)
-        .join(', ');
+    if (reviewAreaType) {
+        const areaType = document.getElementById('areaType');
+        reviewAreaType.textContent = areaType ? areaType.value || '-' : '-';
+    }
     
-    document.getElementById('reviewHazards').textContent = selectedHazards || 'None selected';
+    if (reviewRiskLevel) {
+        const riskLevel = document.getElementById('riskLevel');
+        reviewRiskLevel.textContent = riskLevel ? riskLevel.value || '-' : '-';
+    }
     
-    // Update remarks
-    const hazardDesc = document.getElementById('hazardDescription').value;
-    const hazardRemarks = document.getElementById('hazardRemarks').value;
-    let remarks = '';
+    if (reviewHazards) {
+        // Get selected hazards
+        const selectedHazards = Array.from(document.querySelectorAll('.hazard-option input:checked'))
+            .map(cb => cb.value)
+            .join(', ');
+        
+        reviewHazards.textContent = selectedHazards || 'None selected';
+    }
     
-    if (hazardDesc) remarks += hazardDesc;
-    if (hazardRemarks) remarks += (remarks ? '\n' : '') + hazardRemarks;
-    
-    document.getElementById('reviewRemarks').textContent = remarks || '-';
+    if (reviewRemarks) {
+        // Update remarks
+        const hazardDesc = document.getElementById('hazardDescription')?.value;
+        const hazardRemarks = document.getElementById('hazardRemarks')?.value;
+        let remarks = '';
+        
+        if (hazardDesc) remarks += hazardDesc;
+        if (hazardRemarks) remarks += (remarks ? '\n' : '') + hazardRemarks;
+        
+        reviewRemarks.textContent = remarks || '-';
+    }
 }
 
 function updateRecommendedType() {
-    const areaType = document.getElementById('areaType').value;
+    const areaType = document.getElementById('areaType')?.value;
     const selectedHazards = Array.from(document.querySelectorAll('.hazard-option input:checked'))
         .map(cb => cb.value);
     
@@ -483,8 +579,9 @@ function updateRecommendedType() {
         recommendedType = 'ABC / DCP';
     }
     
-    if (recommendedType) {
-        document.getElementById('recommendedType').value = recommendedType;
+    const recommendedTypeSelect = document.getElementById('recommendedType');
+    if (recommendedTypeSelect && recommendedType) {
+        recommendedTypeSelect.value = recommendedType;
     }
 }
 
@@ -498,42 +595,42 @@ function addExtinguisherFromReview() {
     // Get all form values
     const extinguisherData = {
         // Basic Info
-        accountName: document.getElementById('accountName').value.trim(),
-        address: document.getElementById('address').value.trim(),
-        auditDate: document.getElementById('auditDate').value,
-        contactPerson: document.getElementById('contactPerson').value.trim(),
-        contactPhone: document.getElementById('contactPhone').value.trim(),
-        contactEmail: document.getElementById('contactEmail').value.trim(),
+        accountName: document.getElementById('accountName')?.value.trim() || '',
+        address: document.getElementById('address')?.value.trim() || '',
+        auditDate: document.getElementById('auditDate')?.value || '',
+        contactPerson: document.getElementById('contactPerson')?.value.trim() || '',
+        contactPhone: document.getElementById('contactPhone')?.value.trim() || '',
+        contactEmail: document.getElementById('contactEmail')?.value.trim() || '',
         
         // Extinguisher Details
         sno: currentSno++,
-        location: document.getElementById('location').value.trim(),
-        extinguisherName: document.getElementById('extinguisherName').value.trim(),
-        type: document.getElementById('extinguisherType').value,
-        bodyType: document.getElementById('bodyType').value,
-        operatingType: document.getElementById('operatingType').value,
-        fireAgentType: document.getElementById('fireAgentType').value,
-        fireAgentName: document.getElementById('fireAgentName').value.trim(),
-        capacity: document.getElementById('capacity').value,
-        quantity: parseInt(document.getElementById('quantity').value) || 1,
-        brand: document.getElementById('brand').value.trim(),
-        serialNumber: document.getElementById('serialNumber').value.trim(),
-        installDate: document.getElementById('installationDate').value,
-        expiryDate: document.getElementById('expiryDate').value,
-        status: document.getElementById('status').value,
-        recommendReplacement: document.getElementById('recommendReplacement').checked,
-        extinguisherRemarks: document.getElementById('extinguisherRemarks').value.trim(),
+        location: document.getElementById('location')?.value.trim() || '',
+        extinguisherName: document.getElementById('extinguisherName')?.value.trim() || '',
+        type: document.getElementById('extinguisherType')?.value || '',
+        bodyType: document.getElementById('bodyType')?.value || '',
+        operatingType: document.getElementById('operatingType')?.value || '',
+        fireAgentType: document.getElementById('fireAgentType')?.value || '',
+        fireAgentName: document.getElementById('fireAgentName')?.value.trim() || '',
+        capacity: document.getElementById('capacity')?.value || '',
+        quantity: parseInt(document.getElementById('quantity')?.value) || 1,
+        brand: document.getElementById('brand')?.value.trim() || '',
+        serialNumber: document.getElementById('serialNumber')?.value.trim() || '',
+        installDate: document.getElementById('installationDate')?.value || '',
+        expiryDate: document.getElementById('expiryDate')?.value || '',
+        status: document.getElementById('status')?.value || 'Good',
+        recommendReplacement: document.getElementById('recommendReplacement')?.checked || false,
+        extinguisherRemarks: document.getElementById('extinguisherRemarks')?.value.trim() || '',
         
         // Hazard Assessment
-        areaType: document.getElementById('areaType').value,
-        trafficLevel: document.getElementById('trafficLevel').value,
+        areaType: document.getElementById('areaType')?.value || '',
+        trafficLevel: document.getElementById('trafficLevel')?.value || 'Medium',
         hazards: Array.from(document.querySelectorAll('.hazard-option input:checked'))
             .map(cb => cb.value)
             .join(', '),
-        hazardDescription: document.getElementById('hazardDescription').value.trim(),
-        recommendedType: document.getElementById('recommendedType').value,
-        riskLevel: document.getElementById('riskLevel').value,
-        hazardRemarks: document.getElementById('hazardRemarks').value.trim()
+        hazardDescription: document.getElementById('hazardDescription')?.value.trim() || '',
+        recommendedType: document.getElementById('recommendedType')?.value || '',
+        riskLevel: document.getElementById('riskLevel')?.value || 'Medium',
+        hazardRemarks: document.getElementById('hazardRemarks')?.value.trim() || ''
     };
     
     // Validate required fields
@@ -567,33 +664,56 @@ function addExtinguisherAndStartNew() {
     addExtinguisherFromReview();
     
     // Clear form for next entry (keep basic info)
-    document.getElementById('location').value = '';
-    document.getElementById('extinguisherName').value = '';
-    document.getElementById('extinguisherType').value = '';
-    document.getElementById('bodyType').value = '';
-    document.getElementById('operatingType').value = '';
-    document.getElementById('fireAgentType').value = '';
-    document.getElementById('fireAgentName').value = '';
-    document.getElementById('capacity').value = '';
-    document.getElementById('quantity').value = '1';
-    document.getElementById('brand').value = '';
-    document.getElementById('serialNumber').value = '';
-    document.getElementById('installationDate').value = '';
-    document.getElementById('expiryDate').value = '';
-    document.getElementById('status').value = 'Good';
-    document.getElementById('recommendReplacement').checked = false;
-    document.getElementById('extinguisherRemarks').value = '';
+    const clearFields = [
+        'location', 'extinguisherName', 'extinguisherType', 'bodyType', 'operatingType',
+        'fireAgentType', 'fireAgentName', 'capacity', 'brand', 'serialNumber',
+        'installationDate', 'extinguisherRemarks'
+    ];
+    
+    clearFields.forEach(fieldId => {
+        const element = document.getElementById(fieldId);
+        if (element) element.value = '';
+    });
+    
+    // Reset specific fields
+    const quantityInput = document.getElementById('quantity');
+    if (quantityInput) quantityInput.value = '1';
+    
+    const expiryDateInput = document.getElementById('expiryDate');
+    if (expiryDateInput) {
+        const nextYear = new Date();
+        nextYear.setFullYear(nextYear.getFullYear() + 1);
+        expiryDateInput.value = nextYear.toISOString().split('T')[0];
+    }
+    
+    const statusSelect = document.getElementById('status');
+    if (statusSelect) statusSelect.value = 'Good';
+    
+    const recommendCheckbox = document.getElementById('recommendReplacement');
+    if (recommendCheckbox) recommendCheckbox.checked = false;
     
     // Reset hazard assessment
-    document.getElementById('areaType').value = '';
-    document.getElementById('trafficLevel').value = 'Medium';
+    const areaTypeSelect = document.getElementById('areaType');
+    if (areaTypeSelect) areaTypeSelect.value = '';
+    
+    const trafficLevelSelect = document.getElementById('trafficLevel');
+    if (trafficLevelSelect) trafficLevelSelect.value = 'Medium';
+    
     document.querySelectorAll('.hazard-option input').forEach(cb => {
         cb.checked = false;
     });
-    document.getElementById('hazardDescription').value = '';
-    document.getElementById('recommendedType').value = '';
-    document.getElementById('riskLevel').value = 'Medium';
-    document.getElementById('hazardRemarks').value = '';
+    
+    const hazardDescription = document.getElementById('hazardDescription');
+    if (hazardDescription) hazardDescription.value = '';
+    
+    const recommendedType = document.getElementById('recommendedType');
+    if (recommendedType) recommendedType.value = '';
+    
+    const riskLevel = document.getElementById('riskLevel');
+    if (riskLevel) riskLevel.value = 'Medium';
+    
+    const hazardRemarks = document.getElementById('hazardRemarks');
+    if (hazardRemarks) hazardRemarks.value = '';
     
     // Go back to step 2
     goToStep(2);
@@ -601,6 +721,8 @@ function addExtinguisherAndStartNew() {
 
 function updateExtinguisherTable() {
     const tableBody = document.getElementById('extinguisherTableBody');
+    if (!tableBody) return;
+    
     tableBody.innerHTML = '';
     
     extinguishers.forEach(ext => {
@@ -652,13 +774,19 @@ function updateCounters() {
         ext.status !== 'Good' && ext.status !== 'Not Accessible'
     ).reduce((sum, ext) => sum + ext.quantity, 0);
     
-    document.getElementById('totalCount').textContent = totalItems;
-    document.getElementById('totalQuantity').textContent = totalQuantity;
-    document.getElementById('attentionCount').textContent = attentionCount;
+    const totalCountElement = document.getElementById('totalCount');
+    const totalQuantityElement = document.getElementById('totalQuantity');
+    const attentionCountElement = document.getElementById('attentionCount');
+    const previewTotalElement = document.getElementById('previewTotal');
+    const previewGoodElement = document.getElementById('previewGood');
+    const previewAttentionElement = document.getElementById('previewAttention');
     
-    document.getElementById('previewTotal').textContent = totalQuantity;
-    document.getElementById('previewGood').textContent = totalQuantity - attentionCount;
-    document.getElementById('previewAttention').textContent = attentionCount;
+    if (totalCountElement) totalCountElement.textContent = totalItems;
+    if (totalQuantityElement) totalQuantityElement.textContent = totalQuantity;
+    if (attentionCountElement) attentionCountElement.textContent = attentionCount;
+    if (previewTotalElement) previewTotalElement.textContent = totalQuantity;
+    if (previewGoodElement) previewGoodElement.textContent = totalQuantity - attentionCount;
+    if (previewAttentionElement) previewAttentionElement.textContent = attentionCount;
 }
 
 function deleteExtinguisher(sno) {
@@ -679,47 +807,67 @@ function editExtinguisher(sno) {
     if (!ext) return;
     
     // Populate basic info if not already set
-    if (!document.getElementById('accountName').value) {
-        document.getElementById('accountName').value = ext.accountName || '';
-        document.getElementById('address').value = ext.address || '';
-        document.getElementById('auditDate').value = ext.auditDate || '';
-        document.getElementById('contactPerson').value = ext.contactPerson || '';
-        document.getElementById('contactPhone').value = ext.contactPhone || '';
-        document.getElementById('contactEmail').value = ext.contactEmail || '';
-    }
+    const accountName = document.getElementById('accountName');
+    const address = document.getElementById('address');
+    const auditDate = document.getElementById('auditDate');
+    const contactPerson = document.getElementById('contactPerson');
+    const contactPhone = document.getElementById('contactPhone');
+    const contactEmail = document.getElementById('contactEmail');
+    
+    if (accountName && !accountName.value) accountName.value = ext.accountName || '';
+    if (address && !address.value) address.value = ext.address || '';
+    if (auditDate && !auditDate.value) auditDate.value = ext.auditDate || '';
+    if (contactPerson && !contactPerson.value) contactPerson.value = ext.contactPerson || '';
+    if (contactPhone && !contactPhone.value) contactPhone.value = ext.contactPhone || '';
+    if (contactEmail && !contactEmail.value) contactEmail.value = ext.contactEmail || '';
     
     // Populate extinguisher details
-    document.getElementById('location').value = ext.location || '';
-    document.getElementById('extinguisherName').value = ext.extinguisherName || '';
-    document.getElementById('extinguisherType').value = ext.type || '';
-    document.getElementById('bodyType').value = ext.bodyType || '';
-    document.getElementById('operatingType').value = ext.operatingType || '';
-    document.getElementById('fireAgentType').value = ext.fireAgentType || '';
-    document.getElementById('fireAgentName').value = ext.fireAgentName || '';
-    document.getElementById('capacity').value = ext.capacity || '';
-    document.getElementById('quantity').value = ext.quantity || 1;
-    document.getElementById('brand').value = ext.brand || '';
-    document.getElementById('serialNumber').value = ext.serialNumber || '';
-    document.getElementById('installationDate').value = ext.installDate || '';
-    document.getElementById('expiryDate').value = ext.expiryDate || '';
-    document.getElementById('status').value = ext.status || 'Good';
-    document.getElementById('recommendReplacement').checked = ext.recommendReplacement || false;
-    document.getElementById('extinguisherRemarks').value = ext.extinguisherRemarks || '';
+    const fields = {
+        'location': ext.location,
+        'extinguisherName': ext.extinguisherName,
+        'extinguisherType': ext.type,
+        'bodyType': ext.bodyType,
+        'operatingType': ext.operatingType,
+        'fireAgentType': ext.fireAgentType,
+        'fireAgentName': ext.fireAgentName,
+        'capacity': ext.capacity,
+        'quantity': ext.quantity,
+        'brand': ext.brand,
+        'serialNumber': ext.serialNumber,
+        'installationDate': ext.installDate,
+        'expiryDate': ext.expiryDate,
+        'status': ext.status,
+        'extinguisherRemarks': ext.extinguisherRemarks
+    };
+    
+    for (const [id, value] of Object.entries(fields)) {
+        const element = document.getElementById(id);
+        if (element) element.value = value || '';
+    }
+    
+    const recommendCheckbox = document.getElementById('recommendReplacement');
+    if (recommendCheckbox) recommendCheckbox.checked = ext.recommendReplacement || false;
     
     // Populate hazard assessment
-    document.getElementById('areaType').value = ext.areaType || '';
-    document.getElementById('trafficLevel').value = ext.trafficLevel || 'Medium';
+    const hazardFields = {
+        'areaType': ext.areaType,
+        'trafficLevel': ext.trafficLevel,
+        'hazardDescription': ext.hazardDescription,
+        'recommendedType': ext.recommendedType,
+        'riskLevel': ext.riskLevel,
+        'hazardRemarks': ext.hazardRemarks
+    };
+    
+    for (const [id, value] of Object.entries(hazardFields)) {
+        const element = document.getElementById(id);
+        if (element) element.value = value || '';
+    }
     
     // Set hazard checkboxes
     const hazards = ext.hazards ? ext.hazards.split(', ') : [];
     document.querySelectorAll('.hazard-option input').forEach(cb => {
         cb.checked = hazards.includes(cb.value);
     });
-    
-    document.getElementById('hazardDescription').value = ext.hazardDescription || '';
-    document.getElementById('recommendedType').value = ext.recommendedType || '';
-    document.getElementById('riskLevel').value = ext.riskLevel || 'Medium';
-    document.getElementById('hazardRemarks').value = ext.hazardRemarks || '';
     
     // Remove from list (will be re-added when saved)
     extinguishers = extinguishers.filter(e => e.sno !== sno);
@@ -753,23 +901,31 @@ function generateReport() {
     // Add save PDF button if not exists
     if (!document.getElementById('savePdfBtn')) {
         const reportHeader = document.querySelector('.report-preview-section .section-header');
-        const savePdfBtn = document.createElement('button');
-        savePdfBtn.id = 'savePdfBtn';
-        savePdfBtn.className = 'btn btn-print';
-        savePdfBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Save as PDF';
-        savePdfBtn.addEventListener('click', saveAsPDF);
-        reportHeader.appendChild(savePdfBtn);
+        if (reportHeader) {
+            const savePdfBtn = document.createElement('button');
+            savePdfBtn.id = 'savePdfBtn';
+            savePdfBtn.className = 'btn btn-print';
+            savePdfBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Save as PDF';
+            savePdfBtn.addEventListener('click', saveAsPDF);
+            reportHeader.appendChild(savePdfBtn);
+        }
     }
     
     // Scroll to report section
-    document.getElementById('reportSection').scrollIntoView({ behavior: 'smooth' });
+    const reportSection = document.getElementById('reportSection');
+    if (reportSection) {
+        reportSection.scrollIntoView({ behavior: 'smooth' });
+    }
     
     showSuccessModal('Report Generated', 'Your fire extinguisher audit report has been generated successfully.');
 }
 
 function updateReportPreview() {
+    const reportDetails = document.querySelector('.report-details');
+    if (!reportDetails) return;
+    
     if (extinguishers.length === 0) {
-        document.querySelector('.report-details').innerHTML = `
+        reportDetails.innerHTML = `
             <p class="no-data">No audit data available. Please add extinguishers and generate a report.</p>
         `;
         return;
@@ -778,10 +934,18 @@ function updateReportPreview() {
     // Use first extinguisher's basic info (all should be same)
     const firstExt = extinguishers[0];
     
-    document.getElementById('reportAccountName').textContent = firstExt.accountName || 'Not specified';
-    document.getElementById('reportAddress').textContent = firstExt.address || 'Not specified';
-    document.getElementById('reportDate').textContent = formatDate(firstExt.auditDate) || 'Not specified';
-    document.getElementById('reportContact').textContent = firstExt.contactPerson || 'Not specified';
+    // Update report header
+    const reportElements = {
+        'reportAccountName': firstExt.accountName || 'Not specified',
+        'reportAddress': firstExt.address || 'Not specified',
+        'reportDate': formatDate(firstExt.auditDate) || 'Not specified',
+        'reportContact': firstExt.contactPerson || 'Not specified'
+    };
+    
+    for (const [id, value] of Object.entries(reportElements)) {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value;
+    }
     
     // Generate report details
     let reportHTML = `
@@ -902,13 +1066,13 @@ function updateReportPreview() {
             </div>
             <div class="report-notes">
                 <p><strong>Note:</strong> This report is generated by Fire Extinguisher Audit Tool. Regular inspections are recommended as per NFPA 10 standards.</p>
-                <p><strong>Website:</strong> https://fire-extinguisher-audit-tool.vercel.app/</p>
+                <p><strong>Website:</strong> https://safetyguide360-fire-extinguisher-au.vercel.app/</p>
                 <p><strong>Contact:</strong> contact@amjathkhan.com | +91-9750816163</p>
             </div>
         </div>
     `;
     
-    document.querySelector('.report-details').innerHTML = reportHTML;
+    reportDetails.innerHTML = reportHTML;
 }
 
 function loadSampleData() {
@@ -1031,12 +1195,19 @@ function loadSampleData() {
             currentSno = sampleExtinguishers.length + 1;
             
             // Fill basic info
-            document.getElementById('accountName').value = 'Sample Manufacturing Company Inc.';
-            document.getElementById('address').value = '123 Industrial Estate, Safety City, SC 12345';
-            document.getElementById('auditDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('contactPerson').value = 'John Safety Manager';
-            document.getElementById('contactPhone').value = '(555) 987-6543';
-            document.getElementById('contactEmail').value = 'john.safety@samplecompany.com';
+            const accountName = document.getElementById('accountName');
+            const address = document.getElementById('address');
+            const auditDate = document.getElementById('auditDate');
+            const contactPerson = document.getElementById('contactPerson');
+            const contactPhone = document.getElementById('contactPhone');
+            const contactEmail = document.getElementById('contactEmail');
+            
+            if (accountName) accountName.value = 'Sample Manufacturing Company Inc.';
+            if (address) address.value = '123 Industrial Estate, Safety City, SC 12345';
+            if (auditDate) auditDate.value = new Date().toISOString().split('T')[0];
+            if (contactPerson) contactPerson.value = 'John Safety Manager';
+            if (contactPhone) contactPhone.value = '(555) 987-6543';
+            if (contactEmail) contactEmail.value = 'john.safety@samplecompany.com';
             
             // Update UI
             updateExtinguisherTable();
@@ -1108,6 +1279,11 @@ async function exportToPDF() {
     
     try {
         // Load jsPDF dynamically
+        if (typeof window.jspdf === 'undefined') {
+            showSuccessModal('PDF Error', 'PDF library not loaded. Please try again.');
+            return;
+        }
+        
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF('p', 'mm', 'a4');
         
@@ -1156,76 +1332,26 @@ async function exportToPDF() {
             ext.recommendReplacement ? 'Yes' : 'No'
         ]);
         
-        doc.autoTable({
-            startY: 110,
-            head: [['S.No', 'Location', 'Extinguisher', 'Capacity', 'Qty', 'Status', 'Expiry', 'Replace']],
-            body: tableData,
-            theme: 'striped',
-            headStyles: { fillColor: [0, 0, 0] },
-            margin: { top: 110 }
-        });
-        
-        // Add recommendations
-        const finalY = doc.lastAutoTable.finalY + 20;
-        doc.setFontSize(14);
-        doc.setTextColor(255, 76, 76);
-        doc.text('Key Findings', 20, finalY);
-        
-        doc.setFontSize(11);
-        doc.setTextColor(80, 80, 80);
-        
-        let yPos = finalY + 10;
-        const needsAttention = extinguishers.filter(ext => ext.status !== 'Good');
-        
-        if (needsAttention.length === 0) {
-            doc.text('• All fire extinguishers are in good working condition.', 20, yPos);
-            yPos += 10;
+        if (typeof doc.autoTable !== 'undefined') {
+            doc.autoTable({
+                startY: 110,
+                head: [['S.No', 'Location', 'Extinguisher', 'Capacity', 'Qty', 'Status', 'Expiry', 'Replace']],
+                body: tableData,
+                theme: 'striped',
+                headStyles: { fillColor: [0, 0, 0] },
+                margin: { top: 110 }
+            });
         } else {
-            needsAttention.forEach((ext, index) => {
+            // Fallback if autoTable is not available
+            let yPos = 110;
+            tableData.forEach(row => {
                 if (yPos > 270) {
                     doc.addPage();
                     yPos = 20;
                 }
-                doc.text(`• ${ext.location}: ${ext.extinguisherName.substring(0, 30)} - ${ext.status}`, 20, yPos);
+                doc.text(row.join(', '), 20, yPos);
                 yPos += 10;
             });
-        }
-        
-        // Add replacement recommendations
-        const recommendedReplacements = extinguishers.filter(ext => ext.recommendReplacement);
-        if (recommendedReplacements.length > 0) {
-            if (yPos > 270) {
-                doc.addPage();
-                yPos = 20;
-            }
-            
-            doc.setFontSize(14);
-            doc.setTextColor(255, 76, 76);
-            doc.text('Recommended Actions', 20, yPos);
-            yPos += 10;
-            
-            doc.setFontSize(11);
-            doc.setTextColor(80, 80, 80);
-            
-            recommendedReplacements.forEach(ext => {
-                if (yPos > 270) {
-                    doc.addPage();
-                    yPos = 20;
-                }
-                doc.text(`• Replace/Add at ${ext.location}: ${ext.extinguisherName.substring(0, 30)}`, 20, yPos);
-                yPos += 10;
-            });
-        }
-        
-        // Add footer
-        const pageCount = doc.internal.getNumberOfPages();
-        for (let i = 1; i <= pageCount; i++) {
-            doc.setPage(i);
-            doc.setFontSize(10);
-            doc.setTextColor(150, 150, 150);
-            doc.text(`Page ${i} of ${pageCount}`, 105, 287, { align: 'center' });
-            doc.text('Generated by Fire Extinguisher Audit Tool', 105, 292, { align: 'center' });
-            doc.text('Website: https://fire-extinguisher-audit-tool.vercel.app/', 105, 297, { align: 'center' });
         }
         
         // Save the PDF
@@ -1415,7 +1541,7 @@ function printReport() {
             ${printContent}
             <div class="report-notes">
                 <p><strong>Note:</strong> This report is generated automatically by Fire Extinguisher Audit Tool. Regular fire extinguisher inspections are required by NFPA 10 standards.</p>
-                <p><strong>Website:</strong> https://fire-extinguisher-audit-tool.vercel.app/</p>
+                <p><strong>Website:</strong> https://safetyguide360-fire-extinguisher-au.vercel.app/</p>
                 <p><strong>Contact:</strong> contact@amjathkhan.com | +91-9750816163</p>
                 <p>Printed: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}</p>
             </div>
@@ -1430,32 +1556,37 @@ function printReport() {
 
 // Modal Functions
 function showSuccessModal(title, message) {
-    document.getElementById('successMessage').textContent = message;
-    document.querySelector('#successModal h3').textContent = title;
-    document.getElementById('successModal').style.display = 'flex';
+    console.log(`Showing success modal: ${title} - ${message}`);
+    const successMessage = document.getElementById('successMessage');
+    const modalTitle = document.querySelector('#successModal h3');
+    const modal = document.getElementById('successModal');
+    
+    if (successMessage) successMessage.textContent = message;
+    if (modalTitle) modalTitle.textContent = title;
+    if (modal) modal.style.display = 'flex';
 }
 
 function closeSuccessModal() {
-    document.getElementById('successModal').style.display = 'none';
-}
-
-function closeAllModals() {
-    document.querySelectorAll('.modal').forEach(modal => {
-        modal.style.display = 'none';
-    });
+    const modal = document.getElementById('successModal');
+    if (modal) modal.style.display = 'none';
 }
 
 let confirmedAction = null;
 
 function showConfirmModal(title, message, action) {
     confirmedAction = action;
-    document.getElementById('confirmMessage').textContent = message;
-    document.querySelector('#confirmModal h3').textContent = title;
-    document.getElementById('confirmModal').style.display = 'flex';
+    const confirmMessage = document.getElementById('confirmMessage');
+    const modalTitle = document.querySelector('#confirmModal h3');
+    const modal = document.getElementById('confirmModal');
+    
+    if (confirmMessage) confirmMessage.textContent = message;
+    if (modalTitle) modalTitle.textContent = title;
+    if (modal) modal.style.display = 'flex';
 }
 
 function closeConfirmModal() {
-    document.getElementById('confirmModal').style.display = 'none';
+    const modal = document.getElementById('confirmModal');
+    if (modal) modal.style.display = 'none';
     confirmedAction = null;
 }
 
@@ -1486,12 +1617,12 @@ function saveToLocalStorage() {
         extinguishers,
         currentSno,
         basicInfo: {
-            accountName: document.getElementById('accountName').value,
-            address: document.getElementById('address').value,
-            auditDate: document.getElementById('auditDate').value,
-            contactPerson: document.getElementById('contactPerson').value,
-            contactPhone: document.getElementById('contactPhone').value,
-            contactEmail: document.getElementById('contactEmail').value
+            accountName: document.getElementById('accountName')?.value || '',
+            address: document.getElementById('address')?.value || '',
+            auditDate: document.getElementById('auditDate')?.value || '',
+            contactPerson: document.getElementById('contactPerson')?.value || '',
+            contactPhone: document.getElementById('contactPhone')?.value || '',
+            contactEmail: document.getElementById('contactEmail')?.value || ''
         }
     };
     
@@ -1507,12 +1638,19 @@ function loadSavedData() {
             currentSno = data.currentSno || 1;
             
             if (data.basicInfo) {
-                document.getElementById('accountName').value = data.basicInfo.accountName || '';
-                document.getElementById('address').value = data.basicInfo.address || '';
-                document.getElementById('auditDate').value = data.basicInfo.auditDate || '';
-                document.getElementById('contactPerson').value = data.basicInfo.contactPerson || '';
-                document.getElementById('contactPhone').value = data.basicInfo.contactPhone || '';
-                document.getElementById('contactEmail').value = data.basicInfo.contactEmail || '';
+                const accountName = document.getElementById('accountName');
+                const address = document.getElementById('address');
+                const auditDate = document.getElementById('auditDate');
+                const contactPerson = document.getElementById('contactPerson');
+                const contactPhone = document.getElementById('contactPhone');
+                const contactEmail = document.getElementById('contactEmail');
+                
+                if (accountName) accountName.value = data.basicInfo.accountName || '';
+                if (address) address.value = data.basicInfo.address || '';
+                if (auditDate) auditDate.value = data.basicInfo.auditDate || '';
+                if (contactPerson) contactPerson.value = data.basicInfo.contactPerson || '';
+                if (contactPhone) contactPhone.value = data.basicInfo.contactPhone || '';
+                if (contactEmail) contactEmail.value = data.basicInfo.contactEmail || '';
             }
             
             updateExtinguisherTable();
@@ -1552,4 +1690,42 @@ style.textContent = `
     .report-notes { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gray-light); font-size: 0.85rem; color: var(--gray-medium); line-height: 1.5; }
 `;
 document.head.appendChild(style);
-[file content end]
+
+// Add event listeners for modal close buttons
+document.addEventListener('DOMContentLoaded', function() {
+    // Close modals on X click
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        });
+    });
+    
+    // Close modal on outside click
+    window.addEventListener('click', function(event) {
+        document.querySelectorAll('.modal').forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+    
+    // OK button for success modal
+    const modalOkBtn = document.getElementById('modalOkBtn');
+    if (modalOkBtn) {
+        modalOkBtn.addEventListener('click', closeSuccessModal);
+    }
+    
+    // Cancel button for confirm modal
+    const modalCancelBtn = document.getElementById('modalCancelBtn');
+    if (modalCancelBtn) {
+        modalCancelBtn.addEventListener('click', closeConfirmModal);
+    }
+    
+    // Confirm button for confirm modal
+    const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+    if (modalConfirmBtn) {
+        modalConfirmBtn.addEventListener('click', executeConfirmedAction);
+    }
+});
