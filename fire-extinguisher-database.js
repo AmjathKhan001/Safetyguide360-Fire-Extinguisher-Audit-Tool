@@ -240,14 +240,84 @@ function getUniqueCapacities() {
 
 // Auto-fill form when extinguisher is selected
 function autoFillExtinguisherDetails(extinguisher) {
-    document.getElementById('extinguisherName').value = `${extinguisher.name} - ${extinguisher.capacity}`;
-    document.getElementById('extinguisherType').value = extinguisher.type;
-    document.getElementById('bodyType').value = extinguisher.body;
-    document.getElementById('operatingType').value = extinguisher.operating;
-    document.getElementById('fireAgentType').value = extinguisher.agent;
-    document.getElementById('fireAgentName').value = extinguisher.agentName;
-    document.getElementById('capacity').value = extinguisher.capacity;
+    const extinguisherNameInput = document.getElementById('extinguisherName');
+    const extinguisherTypeSelect = document.getElementById('extinguisherType');
+    const bodyTypeSelect = document.getElementById('bodyType');
+    const operatingTypeSelect = document.getElementById('operatingType');
+    const fireAgentTypeSelect = document.getElementById('fireAgentType');
+    const fireAgentNameInput = document.getElementById('fireAgentName');
+    const capacityInput = document.getElementById('capacity');
+    const extinguisherResults = document.getElementById('extinguisherSearchResults');
     
-    // Hide search results
-    document.getElementById('extinguisherSearchResults').style.display = 'none';
+    if (extinguisherNameInput) extinguisherNameInput.value = `${extinguisher.name} - ${extinguisher.capacity}`;
+    if (extinguisherTypeSelect) extinguisherTypeSelect.value = extinguisher.type;
+    if (bodyTypeSelect) bodyTypeSelect.value = extinguisher.body;
+    if (operatingTypeSelect) operatingTypeSelect.value = extinguisher.operating;
+    if (fireAgentTypeSelect) fireAgentTypeSelect.value = extinguisher.agent;
+    if (fireAgentNameInput) fireAgentNameInput.value = extinguisher.agentName;
+    if (capacityInput) capacityInput.value = extinguisher.capacity;
+    if (extinguisherResults) extinguisherResults.innerHTML = '';
+}
+
+// Handle search input
+function handleExtinguisherSearch() {
+    const searchInput = document.getElementById('extinguisherSearch');
+    const resultsContainer = document.getElementById('extinguisherSearchResults');
+    
+    if (!searchInput || !resultsContainer) return;
+    
+    const query = searchInput.value.trim();
+    
+    if (query.length < 2) {
+        resultsContainer.innerHTML = '';
+        return;
+    }
+    
+    const results = searchFireExtinguishers(query);
+    
+    if (results.length === 0) {
+        resultsContainer.innerHTML = '<div class="search-result-item">No results found</div>';
+        return;
+    }
+    
+    resultsContainer.innerHTML = results.map(extinguisher => `
+        <div class="search-result-item" onclick="autoFillExtinguisherDetails(${JSON.stringify(extinguisher).replace(/"/g, '&quot;')})">
+            <strong>${extinguisher.name}</strong> - ${extinguisher.capacity}<br>
+            <small>Type: ${extinguisher.type} | Body: ${extinguisher.body} | Agent: ${extinguisher.agentName}</small>
+        </div>
+    `).join('');
+}
+
+// Initialize form with capacities dropdown
+function initializeForm() {
+    const capacitySelect = document.getElementById('capacitySelect');
+    if (capacitySelect) {
+        const capacities = getUniqueCapacities();
+        capacitySelect.innerHTML = '<option value="">Select Capacity</option>' +
+            capacities.map(capacity => `<option value="${capacity}">${capacity}</option>`).join('');
+    }
+    
+    // Add event listener for search input
+    const searchInput = document.getElementById('extinguisherSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', handleExtinguisherSearch);
+    }
+}
+
+// Export functions for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        fireExtinguisherDatabase,
+        searchFireExtinguishers,
+        getUniqueCapacities,
+        autoFillExtinguisherDetails,
+        initializeForm
+    };
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeForm);
+} else {
+    initializeForm();
 }
